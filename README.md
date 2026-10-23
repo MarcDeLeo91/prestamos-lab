@@ -1,75 +1,73 @@
-# React + TypeScript + Vite
+# Gestor de Préstamos de Equipo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web hecha con React y TypeScript para administrar el préstamo de equipo (monitores, teclados y mouses): inventario, registro de préstamos con validación, devoluciones y detección de préstamos vencidos.
 
-Currently, two official plugins are available:
+## Tecnologías
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React + TypeScript (Vite)
+- json-server como API REST simulada
+- Hooks: useState, useEffect y hooks personalizados
 
-## React Compiler
+## Requisitos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 18 o superior
+- npm
 
-## Expanding the ESLint configuration
+## Instalación y ejecución
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clonar el repositorio:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+   ```bash
+   git clone https://github.com/MarcDeLeo91/prestamos-lab.git
+   cd prestamos-lab
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. Instalar dependencias:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+   ```bash
+   npm install
+   ```
 
-```
+3. Crear un archivo `.env` en la raíz con:
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+   ```
+   VITE_API_URL=http://localhost:3001
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+4. En una terminal, levantar la API:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+   ```bash
+   npm run api
+   ```
+
+5. En otra terminal, levantar la aplicación:
+
+   ```bash
+   npm run dev
+   ```
+
+6. Abrir http://localhost:5173
+
+## Funcionalidades
+
+- Inventario con filtro por categoría y búsqueda por nombre (combinados)
+- Contadores derivados en el encabezado (disponibles, prestados, vencidos)
+- Formulario controlado con validación (solicitante, carné 0000-00-00000, fecha límite de máximo 5 días)
+- Registro de préstamos y devoluciones con persistencia en la API
+- Estados de carga, error y botón Reintentar
+
+## Estructura del proyecto
 
 ```
+src/
+├── components/   componentes reutilizables
+├── pages/        vistas (Inventario, PrestamosActivos)
+├── hooks/        useEquipos, usePrestamos
+├── services/     api.ts (peticiones a la API)
+├── utils/        funciones de fechas
+└── types.ts      tipos compartidos
+```
+
+## Autor
+
+Marco De León
